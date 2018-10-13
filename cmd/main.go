@@ -1,27 +1,23 @@
 package main
 
 import (
-	"log"
-	"net/http"
 	"os"
-	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/rugwirobaker/deagle/api"
+	"github.com/rugwirobaker/deagle/app"
 )
 
-var port = os.Getenv("PORT")
+var (
+	port    = os.Getenv("PORT")
+	service = os.Getenv("SERVICE_NAME")
+	version = os.Getenv("SERVICE_VERSION")
+)
 
 func main() {
 	r := mux.NewRouter()
 	a := api.Init(r)
-	Server := &http.Server{
-		Addr:         port,
-		Handler:      a.BaseRoutes.Root,
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 10 * time.Second,
-		IdleTimeout:  time.Second * 60,
-	}
+	app := app.NewApp(port, service, version)
 
-	log.Fatal(Server.ListenAndServe())
+	app.HTTPServe(a.BaseRoutes.Root)
 }

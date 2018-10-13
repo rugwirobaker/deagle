@@ -23,10 +23,10 @@ func Init(root *mux.Router) *API {
 	}
 	api.BaseRoutes.Root = root.PathPrefix("/api").Subrouter()
 	api.BaseRoutes.Users = api.BaseRoutes.Root.PathPrefix("/users").Subrouter()
-	api.BaseRoutes.Images = api.BaseRoutes.Root.PathPrefix("/users").Subrouter()
+	api.BaseRoutes.Images = api.BaseRoutes.Root.PathPrefix("/images").Subrouter()
 
 	api.InitUsers()
-	//api.InitImages()
+	api.InitImages()
 
 	return api
 }
