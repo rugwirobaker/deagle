@@ -12,18 +12,16 @@ import (
 
 var port = os.Getenv("PORT")
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello World !"))
-}
 func main() {
-	router := mux.NewRouter()
-	a := api.Init(router)
-	server := http.Server{
+	r := mux.NewRouter()
+	a := api.Init(r)
+	Server := &http.Server{
 		Addr:         port,
-		Handler:      a.,
+		Handler:      a.BaseRoutes.Root,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
 		IdleTimeout:  time.Second * 60,
 	}
-	log.Fatal(server.ListenAndServe())
+
+	log.Fatal(Server.ListenAndServe())
 }

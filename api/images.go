@@ -1,37 +1,59 @@
 package api
 
-import "net/http"
+import (
+	"net/http"
 
-//ImageHander ...
-type ImageHander struct{}
+	"github.com/rugwirobaker/deagle/utils"
+)
+
+//ImageHandler ...
+type ImageHandler struct{}
 
 //InitImages ...
-func (api *API) InitImages() {}
+func (api *API) InitImages() {
+	h := ImageHandler{}
+	api.BaseRoutes.Images.Handle("/create", h.Create())
+	api.BaseRoutes.Images.Handle("/update", h.Update())
+	api.BaseRoutes.Images.Handle("/retrieve", h.Retrieve())
+	api.BaseRoutes.Images.Handle("/delete", h.Delete())
+}
 
 //Create ...
-func (h *ImageHander) Create() http.HandlerFunc {
+func (h *ImageHandler) Create() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World"))
+		utils.SendSuccessResult(
+			w,
+			"Hello World, this is a creation!\n",
+		)
 	}
 }
 
 //Update ...
-func (h *ImageHander) Update() http.HandlerFunc {
+func (h *ImageHandler) Update() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World"))
+		utils.SendSuccessResult(
+			w,
+			"Hello World, this is an update!\n",
+		)
 	}
 }
 
 //Retrieve ...
-func (h *ImageHander) Retrieve() http.HandlerFunc {
+func (h *ImageHandler) Retrieve() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World"))
+		utils.SendSuccessResult(
+			w,
+			"Hello World, this is a retrieval!\n",
+		)
 	}
 }
 
 //Delete ...
-func (h *ImageHander) Delete() http.HandlerFunc {
+func (h *ImageHandler) Delete() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World"))
+		utils.SendSuccessResult(
+			w,
+			"Hello World, this is annilation!\n",
+		)
 	}
 }
